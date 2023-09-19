@@ -1,3 +1,11 @@
 <h1> Daily dose of Art </h1>
 
+<button (click)="fetchPeople()"> Fetch people </button>
+
+<hr>
+
+<ul>
+    <li *ngFor="let person of people$ | async">{{person.name}}</li>
+</ul>
+
 <router-outlet></router-outlet>
