@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
 import { PeopleService } from './people.service';
+import { UserService } from './service/user.service';
 
 @Component({
   selector: 'app-root',
@@ -9,10 +10,27 @@ import { PeopleService } from './people.service';
 export class AppComponent {
   title = 'dailyart';
 
-  people$;
-  constructor(private peopleService:PeopleService){}
+  
+  constructor(private userService:UserService){}
 
-  fetchPeople(){
-    this.people$ = this.peopleService.fetchPeople();
+
+  onGetUsers():void{
+    this.userService.getUsers().subscribe(
+      (response) => console.log(response),
+      (error) => console.log(error),
+      () => console.log('Done getting users')
+    )
   }
+
+
+  onGetUser():void{
+    this.userService.getUser().subscribe(
+      (response) => console.log(response),
+      (error) => console.log(error),
+      () => console.log('Done getting user')
+    )
+  }
+
+
+
 }
