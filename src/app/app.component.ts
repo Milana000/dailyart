@@ -1,5 +1,4 @@
 import { Component } from '@angular/core';
-import { PeopleService } from './people.service';
 import { UserService } from './service/user.service';
 
 @Component({
@@ -10,13 +9,13 @@ import { UserService } from './service/user.service';
 export class AppComponent {
   title = 'dailyart';
 
-  
+  users$:any;
   constructor(private userService:UserService){}
 
 
   onGetUsers():void{
     this.userService.getUsers().subscribe(
-      (response) => console.log(response),
+      (response) => this.users$ = response,
       (error) => console.log(error),
       () => console.log('Done getting users')
     )

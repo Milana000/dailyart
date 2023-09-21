@@ -4,7 +4,6 @@ import { AppRoutingModule } from './app-routing.module';
 import { HttpClientModule } from '@angular/common/http'
 
 import { AppComponent } from './app.component';
-import { PeopleService } from './people.service';
 import { UserService } from './service/user.service'
 
 
@@ -17,7 +16,7 @@ import { UserService } from './service/user.service'
     AppRoutingModule,
     HttpClientModule
   ],
-  providers: [ PeopleService, UserService ],
+  providers: [ UserService ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
