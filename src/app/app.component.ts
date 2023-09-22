@@ -38,6 +38,17 @@ export class AppComponent {
     }
   }
 
+
+  private user2: any =   {
+    'id': 2,
+    'name': 'Aljosa Graham',
+    'username': 'Aljosa',
+    'email': 'Sincere@april.biz',
+    'company': {
+      'name': 'IBM',
+    }
+  }
+
   constructor(private userService:UserService){}
 
 
@@ -79,6 +90,13 @@ export class AppComponent {
     )
   }
 
+  onPatchUser(){
+    this.userService.patchUser(this.user2).subscribe(
+      (response) => console.log(response),
+      (error) => console.log(error),
+      () => 'User was patched'
+    )
+  }
 
 
 }
