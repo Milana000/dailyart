@@ -98,5 +98,13 @@ export class AppComponent {
     )
   }
 
+  onDeleteUser(){
+    this.userService.deleteUser(5).subscribe(
+      (response) => console.log(response),
+      (error) => console.log(error),
+      () => console.log('Deleting was done')
+    )
+  }
+
 
 }
