@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 import { UserService } from './service/user.service';
 import { User } from './interface/user';
+import { HttpEventType } from '@angular/common/http';
 
 @Component({
   selector: 'app-root',
@@ -49,6 +50,11 @@ export class AppComponent {
     }
   }
 
+  fileStatus =  {
+      status: '',
+      percentage: 0
+    }
+
   constructor(private userService:UserService){}
 
 
@@ -70,6 +76,7 @@ export class AppComponent {
       (error) => console.log(error),
       () => console.log('Done getting user')
     )
+
   }
 
 
@@ -106,5 +113,38 @@ export class AppComponent {
     )
   }
 
+
+
+
+// Following the progress of the request
+onUploadFile(files: any): void {
+    console.log(files);
+    const formData = new FormData();
+    for (const file of files) {
+     formData.append('files', file, file.name);
+    }
+    this.userService.uploadFiles(formData).subscribe(
+      (event) => {
+        switch(event.type){
+          case HttpEventType.UploadProgress || HttpEventType.DownloadProgress:
+            this.fileStatus.percentage = Math.round(100 * event.loaded / event.total);
+            this.fileStatus.status = 'progress';
+            console.log(this.fileStatus);
+            break
+          case HttpEventType.Response:
+            if(event.status === 200){
+              this.fileStatus.percentage = 0;
+              this.fileStatus.status = 'done';
+              console.log(event);
+              console.log(this.fileStatus);
+              break;
+            }
+            break;
+        }
+      },
+      (error) => console.log(error),
+      () => console.log('Done getting user')
+    )
+  }
 
 }

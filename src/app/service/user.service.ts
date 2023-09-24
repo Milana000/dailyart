@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { HttpClient, HttpHeaders, HttpParams, HttpParamsOptions } from '@angular/common/http';
+import { HttpClient, HttpEvent, HttpHeaders, HttpParams, HttpParamsOptions } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { User } from '../interface/user';
 import { environment } from 'src/enviroments/environment';
@@ -27,22 +27,20 @@ export class UserService {
     return this.http.get<User[]>(`${this.apiUrl}/users`, {headers: myHeader})
   }
 
-  getUser(): Observable<User>{
+  getUser(): Observable<HttpEvent<User>>{
 
-    // let myParams = new HttpParams().set('id', 3).set('page', 2); 
-    // myParams = myParams.append('name', 'Marko')
-    // return this.http.get<User>(`${this.apiUrl}/users/`, {params: myParams})
+// Params 
+        // let myParams = new HttpParams().set('id', 3).set('page', 2); 
+        // myParams = myParams.append('name', 'Marko')
+        // return this.http.get<User>(`${this.apiUrl}/users/`, {params: myParams})
 
+      // fromObject
+        // const theParams = {['ime']: this.moreParamms};
+        // let myParams = new HttpParams({fromObject: theParams})
 
-  // fromObject
-    const theParams = {['ime']: this.moreParamms};
-    let myParams = new HttpParams({fromObject: theParams})
-
-  // fromString
-    // let myParams = new HttpParams({fromString: this.prezime})
-
-
-    return this.http.get<User>(`${this.apiUrl}/users/`, {params: myParams})
+      // fromString
+        // let myParams = new HttpParams({fromString: this.prezime}
+    return this.http.get<User>(`${this.apiUrl}/users/`, {observe:'events', reportProgress:true})
   }
 
   createUser(user: User): Observable<User>{
@@ -61,6 +59,11 @@ export class UserService {
     return this.http.delete<void>(`${this.apiUrl}/users/${id}`)
   }
 
-
+  uploadFiles(formData: FormData):Observable<HttpEvent<string[]>> {
+    console.log('Hellloooo')
+    return this.http.post<string[]>(`http://localhost:9000/file/upload`, formData, 
+    {observe: 'events', reportProgress: true  });
+  }
   
+
 }

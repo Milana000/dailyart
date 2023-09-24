@@ -12,7 +12,15 @@
 <p></p>
 <button (click)="onDeleteUser()"> Delete User 5 </button>
 
+<p></p>
 
+<!-- There is difference between this here and course in argument, In course $event.target.files is used -->
+<form>
+    <input type="file" class="file-input" (change)="onUploadFile($event)" #fileUpload multiple/>
+</form>
+
+<progress *ngIf="fileStatus.status === 'progress'" style="width: 500px; height: 25px;"
+[value]="fileStatus.percentage" max="100"></progress>
 
 <hr>
 
