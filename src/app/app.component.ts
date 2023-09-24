@@ -2,6 +2,7 @@ import { Component } from '@angular/core';
 import { UserService } from './service/user.service';
 import { User } from './interface/user';
 import { HttpEventType } from '@angular/common/http';
+import { tap } from 'rxjs';
 
 @Component({
   selector: 'app-root',
