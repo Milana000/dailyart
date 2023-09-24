@@ -12,7 +12,7 @@ import { tap } from 'rxjs';
 export class AppComponent {
   title = 'dailyart';
 
-  users$:any;
+  users:User[];
 
 
 
@@ -62,7 +62,7 @@ export class AppComponent {
   onGetUsers():void{
     this.userService.getUsers().subscribe(
       (response) => {
-        this.users$ = response
+        this.users = response
         console.table(response)
       },
       (error) => console.log(error),
