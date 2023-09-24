@@ -61,7 +61,7 @@ export class UserService {
 
   uploadFiles(formData: FormData):Observable<HttpEvent<string[]>> {
     console.log('Hellloooo')
-    return this.http.post<string[]>(`http://localhost:9000/file/upload`, formData, 
+    return this.http.post<string[]>(`http://localhost:4200/assets/data`, formData, 
     {observe: 'events', reportProgress: true  });
   }
   

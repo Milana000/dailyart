@@ -120,7 +120,7 @@ export class AppComponent {
 onUploadFile(files: any): void {
     console.log(files);
     const formData = new FormData();
-    for (const file of files) {
+    for (const file of files.target.files) {
      formData.append('files', file, file.name);
     }
     this.userService.uploadFiles(formData).subscribe(
