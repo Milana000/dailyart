@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { User } from '../interface/user';
 import { environment } from 'src/enviroments/environment';
@@ -14,11 +14,17 @@ export class UserService {
   constructor(private http: HttpClient) { }
 
   getUsers(): Observable<User[]>{
-    return this.http.get<User[]>(`${this.apiUrl}/users`)
+    let myHeaders = new HttpHeaders({'myHeader': ['Header value', 'Header value 123']})
+    myHeaders = myHeaders.set('id', '123')
+    myHeaders = myHeaders.append('id', '2312')
+    return this.http.get<User[]>(`${this.apiUrl}/users`,{headers: myHeaders})
   }
 
   getUser(): Observable<User>{
-    return this.http.get<User>(`${this.apiUrl}/users/1`)
+
+    let myHeader = new HttpHeaders({'id': ['123', '123']})
+    myHeader = myHeader.set('name', 'blento')
+    return this.http.get<User>(`${this.apiUrl}/users/1`, {headers: myHeader})
   }
 
   createUser(user: User): Observable<User>{
